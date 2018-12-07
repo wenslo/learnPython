@@ -187,3 +187,54 @@ while n > 0:
     sum += n
     n -= 2
 print(sum)
+
+n = 1
+while n < 100:
+    if n > 10:
+        break
+    print(n)
+    n += 1
+print('END')
+
+n = 0
+while n < 10:
+    n += 1
+    if n % 2 == 0:
+        continue
+    print(n)
+
+# dict hash
+d = {'Michael': 95, 'Bob': 95, 'Tracy': 55}
+print(d)
+print(d['Michael'])
+d['Adam'] = 66
+print(d)
+
+print('Thomas' in d)
+print(d.get('Thomas', 20))
+d.pop('Adam')
+print(d)
+# key值必须不可变，所以list不能用作key,但是tuple可以
+k = (1, 2, 3)
+print(k)
+d[k] = 55
+print(d)
+
+s = set([1, 2, 3])
+print(s)
+s = set([1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 7, 8, 8, 9])
+print(s)
+s.add(1)
+print(s)
+
+s1 = set([1, 2, 3])
+s2 = set([2, 3, 4])
+print(s1 & s2)
+print(s1 | s2)
+a = ['c', 'b', 'a']
+print(a)
+a.sort()
+print(a)
+a = 'abc'
+print(a.replace('a', 'A'))
+print(a)
