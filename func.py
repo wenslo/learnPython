@@ -199,3 +199,10 @@ def fact_iter(num, product):
 
 
 print(fact_iter(100, 1))
+
+x1 = 0
+x2 = 0
+
+
+def test(a, b, c):
+    return x1, x2
