@@ -174,4 +174,28 @@ f1(*args, *kw)
 args = (1, 2, 3)
 kw = {'d': 88, 'x': '#'}
 f2(*args, **kw)
+
+
 # 任意函数，都可以通过func(*args,**kw)的形式调用
+
+
+def fact(n):
+    if n == 1:
+        return 1
+    return n * fact(n - 1)
+
+
+print(fact(100))
+
+
+def fact(n):
+    return fact_iter(n, 1)
+
+
+def fact_iter(num, product):
+    if num == 1:
+        return product
+    return fact_iter(num - 1, num * product)
+
+
+print(fact_iter(100, 1))
