@@ -1,5 +1,6 @@
 import os
 from collections import Iterable
+from collections import Iterator
 
 # 切片操作 倒数第一个元素 下标为 -1
 L = ['Michael', 'Sarah', 'Tracy', 'Bob', 'Jack']
@@ -97,3 +98,9 @@ while True:
     except StopIteration as e:
         print('Generator return value:', e.value)
         break
+# 迭代器
+print(isinstance([], Iterator))
+print(isinstance({}, Iterator))
+print(isinstance('abc', Iterator))
+print(isinstance((x for x in range(10)), Iterator))
+print(isinstance(100, Iterator))
