@@ -145,3 +145,8 @@ if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11,
     print('测试成功!')
 else:
     print('测试失败!')
+
+print(sorted([36, 5, -12, 9, -21], key=abs))
+
+print(sorted(['bob', 'about', 'Zoo', 'Credit']))
+print(sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True))
