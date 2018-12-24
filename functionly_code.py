@@ -242,3 +242,37 @@ if [counterB(), counterB(), counterB(), counterB()] == [1, 2, 3, 4]:
     print('测试通过!')
 else:
     print('测试失败!')
+# lambda 本质上为匿名函数 不能写return
+print(list(map(lambda x: x * x, [1, 2, 3, 4, 5, 6, 7, 8, 9])))
+f = lambda x: x * x
+print(f)
+print(f(5))
+
+
+def build(x, y):
+    return lambda: x * x + y * y
+
+
+print(build(2, 2))
+f = build(2, 2)
+print(f())
+
+
+def is_odd(n):
+    return n % 2 == 1
+
+
+L = list(filter(is_odd, range(1, 20)))
+
+print(list(filter(lambda x: x % 2 == 1, range(1, 20))))
+
+
+# 通过__name__可以拿到函数名称
+def now():
+    print('2015-3-25')
+
+
+# f = now()
+# f()
+print(now.__name__)
+print(f.__name__)
