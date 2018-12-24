@@ -1,3 +1,5 @@
+import functools
+import time
 from functools import reduce
 
 
@@ -272,7 +274,132 @@ def now():
     print('2015-3-25')
 
 
+f2 = now
 # f = now()
 # f()
+print("------------")
 print(now.__name__)
-print(f.__name__)
+print(f2.__name__)
+
+
+def log(func):
+    def wrapper(*args, **kw):
+        print("call %s():" % func.__name__)
+        return func(*args, **kw)
+
+    return wrapper
+
+
+@log
+def now():
+    print("2018年12月24日20:37:07")
+
+
+now()
+
+
+def log(text):
+    def decorator(func):
+        def wrapper(*args, **kw):
+            print("%s %s() " % (text, func.__name__))
+
+        return wrapper
+
+    return decorator
+
+
+@log("execute")
+def now():
+    print("2018年12月24日20:39:55")
+
+
+now()
+print(now.__name__)
+
+
+def log(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kw):
+        print("-----------")
+        print("call %s():" % func.__name__)
+        return func(*args, **kw)
+
+    return wrapper
+
+
+@log
+def now():
+    print("2018年12月24日20:43:58")
+
+
+now()
+
+print(now.__name__)
+
+
+def log(text):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kw):
+            print("%s %s():" % (text, func.__name__))
+            return func(*args, **kw)
+
+        return wrapper
+
+    return decorator
+
+
+@log("test")
+def now():
+    print("2018年12月24日20:50:27")
+
+
+now()
+
+print(now.__name__)
+
+
+# print("===========")
+# print(time.time().__format__("yyyy-MM"))
+
+def metric(func):
+    start = time.time()
+
+    @functools.wraps(func)
+    def decorator(*args, **kw):
+        end = time.time()
+        print('%s executed in %s ms' % (func.__name__, end - start))
+        return func(*args, **kw)
+
+    return decorator
+
+
+# test1 = time.time()
+# time.sleep(4)
+# test2 = time.time()
+# print("execute time is %s" % (test2 - test1))
+
+
+@metric
+def fast(x, y):
+    time.sleep(0.0012)
+    return x + y
+
+
+@metric
+def slow(x, y, z):
+    time.sleep(0.1234)
+    return x * y * z
+
+
+print("****************************************************")
+f = fast(11, 22)
+print(f)
+s = slow(11, 22, 33)
+print(s)
+if f != 33:
+    print('测试失败!')
+elif s != 7986:
+    print('测试失败!')
+else:
+    print("测试通过！")
