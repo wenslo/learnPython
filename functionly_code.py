@@ -150,3 +150,95 @@ print(sorted([36, 5, -12, 9, -21], key=abs))
 
 print(sorted(['bob', 'about', 'Zoo', 'Credit']))
 print(sorted(['bob', 'about', 'Zoo', 'Credit'], key=str.lower, reverse=True))
+
+
+# 函数返回
+def calc_sum(*args):
+    ax = 0
+    for n in args:
+        ax = ax + n
+    return ax
+
+
+print(calc_sum(1, 2, 3, 4))
+
+
+def lazy_sum(*args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+
+    return sum
+
+
+f = lazy_sum(1, 2, 3, 4)
+print(f)
+print(f())
+f1 = lazy_sum(1, 2, 3, 4)
+f2 = lazy_sum(1, 2, 3, 4)
+print(f1 == f2)
+
+
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+            return i * i
+
+        fs.append(f)
+    return fs
+
+
+f1, f2, f3 = count()
+print(f1())
+print(f2())
+print(f3())
+
+
+# 返回闭包时牢记一点：返回函数不要引用任何循环变量，或者后续会发生变化的变量。如果一定要使用，则需要保证该值不变
+def count():
+    def f(j):
+        def g():
+            return j * j
+
+        return g
+
+    fs = []
+    for i in range(1, 4):
+        fs.append(f(i))
+    return fs
+
+
+f1, f2, f3 = count()
+print(f1())
+print(f2())
+print(f3())
+
+
+def create_counter():
+    def add_num(i):
+        i = i + 1
+        return i
+
+    fs = [0]
+
+    def get_num():
+        return fs[-1]
+
+    def counter():
+        fs.append(add_num(get_num()))
+        return fs[-1]
+
+    return counter
+
+
+# 测试:
+counterA = create_counter()
+print(counterA(), counterA(), counterA(), counterA(), counterA())  # 1 2 3 4 5
+counterB = create_counter()
+if [counterB(), counterB(), counterB(), counterB()] == [1, 2, 3, 4]:
+    print('测试通过!')
+else:
+    print('测试失败!')
