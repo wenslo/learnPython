@@ -1,7 +1,6 @@
 # read file
 import os
-
-from io import StringIO, BytesIO
+from io import BytesIO, StringIO
 
 f = open('test.txt', 'r')
 # 一次性读取
